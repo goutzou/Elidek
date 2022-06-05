@@ -1,0 +1,89 @@
+# 3.1
+SELECT * FROM Project WHERE 
+Start_Date>'2000-01-01' AND 
+Start_Date<'2022-05-01' AND
+End_Date>'2000-01-01' AND 
+End_Date<'2022-05-01' AND
+Executive_Executive_ID IN (SELECT Executive_ID FROM Executive WHERE Name='Smith');
+
+SELECT * FROM Program WHERE 
+Program_ID IN (SELECT Program_Program_ID FROM Project WHERE 
+Start_Date>'2000-01-01' AND 
+Start_Date<'2022-05-01' AND
+End_Date>'2000-01-01' AND 
+End_Date<'2022-05-01' AND
+Executive_Executive_ID IN (SELECT Executive_ID FROM Executive WHERE Name='Smith'));
+
+SELECT * 
+FROM Researcher WHERE 
+Researcher_ID IN (SELECT Researcher_Researcher_ID FROM Researcher_has_Project WHERE Project_Project_ID = 2);  
+
+-- 3.2
+SELECT * 
+FROM Project WHERE 
+Project_ID IN (SELECT Project_Project_ID FROM Researcher_has_Project WHERE Researcher_Researcher_ID = 2);  
+
+SELECT * 
+FROM Science_Field WHERE 
+Science_Field_ID IN (SELECT Science_Field_Science_Field_ID FROM Project_has_Science_Field WHERE Project_Project_ID = 3);  
+
+-- 3.3
+select p.Title, r.Name, r.Surname 
+from Project P, Researcher R 
+where exists(select Project_ID from Researcher_has_Project RP where (RP.Researcher_Researcher_ID = R.Researcher_id and RP.Project_Project_ID = P.Project_ID)) 
+AND exists(select Project_ID from Project_has_Science_Field PF where P.project_id = PF.Project_Project_ID and PF.Science_Field_Science_Field_ID = 14) 
+AND P.end_date > CURDATE() 
+AND P.start_date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+
+
+-- 3.4 
+WITH YearProj AS (SELECT O.Telephone_Numbers AS TN, YEAR(P.Start_Date) AS DT, COUNT(*) AS CNT 
+FROM Organisation O, Project P
+WHERE O.Telephone_Numbers = P.Organisation_Telephone_Numbers 
+GROUP by O.Name, YEAR(P.Start_Date)) SELECT O.Telephone_Numbers AS OrganisationTN, O.Name AS OrganisationName
+FROM Organisation O, YearProj yp1, YearProj yp2 WHERE (O.Telephone_Numbers = yp1.TN 
+AND O.Telephone_Numbers = yp2.TN AND yp1.DT = yp2.DT-1 AND yp1.CNT = yp2.CNT AND yp1.CNT >= 10);
+
+-- 3.5
+select a,b, count(*) as count from (
+SELECT Project_has_Science_Field.Project_Project_ID, Project_has_Science_Field.Science_Field_Science_Field_ID AS a, 
+P.Science_Field_Science_Field_ID as b FROM Project_has_Science_Field 
+JOIN Project_has_Science_Field P ON Project_has_Science_Field.Project_Project_ID = P.Project_Project_ID 
+WHERE Project_has_Science_Field.Science_Field_Science_Field_ID <> P.Science_Field_Science_Field_ID) as N 
+Group By a,b 
+Order By count DESC
+LIMIT 3;
+
+-- 3.6
+select R.*,count(R.Researcher_ID) as count from Researcher R
+left join Researcher_has_Project RP On R.Researcher_ID = RP.Researcher_Researcher_ID 
+where R.Age<40 
+and Project_Project_ID in (
+select Project_ID from Project where
+End_Date>'2022-01-06' AND 
+Start_Date<='2022-06-06')
+group by R.Researcher_ID order by count(R.Researcher_ID);
+
+-- 3.7
+SELECT Organisation.Name, ex.Name, sum(p.Money)
+FROM project p
+INNER JOIN Executive ex
+ON p.Executive_Executive_ID = ex.Executive_ID
+INNER JOIN Organisation
+ON p.Organisation_Telephone_Numbers = Organisation.Telephone_Numbers
+WHERE Organisation.Category_Category_ID = "3"
+GROUP BY ex.Executive_ID, Organisation.Telephone_Numbers
+ORDER BY sum(p.Money) desc
+limit 5;
+
+-- 3.8
+select R.*, count(R.Researcher_ID) from Researcher R 
+left join Researcher_has_Project RP on RP.Researcher_Reasearcher_ID = R.Researcher_ID
+where RP.Project_Project_ID not in (select Project_Project_ID from Deliverable)
+group by R.Researcher_ID
+having count(Researcher_ID)>=5;
+
+SELECT R.*, count (R.Researcher_ID) FROM Researcher R 
+Left join Researcher_has_Project RP ON R.Researcher_ID=RP.Researcher_Researcher_ID
+Group By R.Researcher_ID 
+Order by count (R.Researcher_ID) DESC;
