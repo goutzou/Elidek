@@ -1,0 +1,21 @@
+##############################
+
+create index ResPro_idx
+on Researcher_has_Project (Researcher_Researcher_ID, Project_Project_ID);  -- 3.2
+        
+##############################
+
+create index r_idx
+on Researcher (Researcher_ID); -- 3.8
+
+##############################
+
+create index PSF_idx
+on Project_has_Science_Field (Project_Project_ID, Science_Field_Science_Field_ID); -- 3.5
+
+##############################
+
+create index org_idx
+on Organisation (Name);
+
+##############################
