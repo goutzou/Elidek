@@ -16,6 +16,6 @@ on Project_has_Science_Field (Project_Project_ID, Science_Field_Science_Field_ID
 ##############################
 
 create index org_idx
-on Organisation (Name);
+on Organisation (Name, Telephone_Numbers);
 
 ##############################
