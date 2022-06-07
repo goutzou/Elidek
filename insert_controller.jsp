@@ -19,19 +19,19 @@ try {
  String surname=request.getParameter("surname"); 
  String Gender=request.getParameter("Gender"); 
  int Age=Integer.parseInt(request.getParameter("Age"));
- String date_of_birth = request.getParameter("date_of_birth"); 
+ String date_of_birth = request.getParameter("Date_of_Birth"); 
  SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); 
  java.util.Date date = sdf1.parse(date_of_birth); 
  java.sql.Date Date_of_Birth = new java.sql.Date(date.getTime());
  int Organisation_Telephone_Numbers=Integer.parseInt(request.getParameter("Organisation_Telephone_Numbers")); 
  insert_values obj_Insert_Values=new insert_values(); 
- obj_Insert_Values.insert_values(Researcher_ID, Name, surname, Gender, Age, Date_of_Birth, Organisation_Telephone_Numbers); 
+ obj_Insert_Values.Insert_Values(Researcher_ID, Name, surname, Gender, Age, Date_of_Birth, Organisation_Telephone_Numbers); 
 } catch (NumberFormatException e) {
 	  e.printStackTrace();
 }
 %>
 <script type="text/javascript">
-//window.location.href="http://localhost:8082/DatabasesELIDEK/src/main/webapp/insert_values.jsp"
+window.location.href="http://localhost:8082/DatabasesELIDEK/insert_values.jsp"
 </script>
 </body>
 </html>
