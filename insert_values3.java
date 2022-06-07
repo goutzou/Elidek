@@ -13,7 +13,7 @@ public class insert_values3 {
       Connection connection=obj_DB_Connection.get_connection();
       PreparedStatement ps=null;
       try {
-        String query="INSERT INTO Project" + " (Project_ID, Title, Summary, Money, Start_Date, End_Date) VALUES " + " (?, ?, ?, ?, ?, ?, ?)";
+        String query="INSERT INTO Project" + " (Project_ID, Title, Summary, Money, Start_Date, End_Date) VALUES " + " (?, ?, ?, ?, ?, ?)";
         ps=connection.prepareStatement(query);
         ps.setInt(1, Project_ID);
         ps.setString(2, Title);
