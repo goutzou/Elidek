@@ -1,22 +1,24 @@
-# 3.1
-SELECT * FROM Project WHERE 
+-- 3.1
+SELECT * FROM Project WHERE
 Start_Date>'2000-01-01' AND 
-Start_Date<'2022-05-01' AND
+Start_Date<'2022-05-01' AND 
 End_Date>'2000-01-01' AND 
-End_Date<'2022-05-01' AND
-Executive_Executive_ID IN (SELECT Executive_ID FROM Executive WHERE Name='Smith');
+End_Date<'2022-05-01' or 
+Executive_Executive_ID IN (SELECT Executive_ID FROM Executive WHERE Name='Smith')
+or Duration<10;
 
-SELECT * FROM Program WHERE 
-Program_ID IN (SELECT Program_Program_ID FROM Project WHERE 
-Start_Date>'2000-01-01' AND 
-Start_Date<'2022-05-01' AND
-End_Date>'2000-01-01' AND 
-End_Date<'2022-05-01' AND
-Executive_Executive_ID IN (SELECT Executive_ID FROM Executive WHERE Name='Smith'));
+SELECT * FROM Program 
+WHERE Program_ID IN 
+(SELECT Program_Program_ID FROM Project
+WHERE Start_Date>'2001-02-03' 
+AND Start_Date<'2034-04-05' AND End_Date>'2015-09-09' 
+AND End_Date<'2025-09-09' or Executive_Executive_ID IN 
+(SELECT Executive_ID FROM Executive WHERE Name='Smith') 
+or Duration<10);
 
 SELECT * 
 FROM Researcher WHERE 
-Researcher_ID IN (SELECT Researcher_Researcher_ID FROM Researcher_has_Project WHERE Project_Project_ID = 2);  
+Researcher_ID IN (SELECT Researcher_Researcher_ID FROM Researcher_has_Project WHERE Project_Project_ID = 2);
 
 -- 3.2
 SELECT * 
