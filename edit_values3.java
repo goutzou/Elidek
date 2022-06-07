@@ -42,7 +42,7 @@ public class edit_values3 {
     Connection connection=obj_DB_Connection.get_connection();
     PreparedStatement ps=null;
     try {
-      String query="UPDATE Project SET Title=?, Summary=?, Money=?, Start_Date=?, End_Date=?, Duration=? where Project_ID=?";
+      String query="UPDATE Project SET Title=?, Summary=?, Money=?, Start_Date=?, End_Date=? where Project_ID=?";
       ps=connection.prepareStatement(query);
       ps.setString(1, obj_User_Bean3.getTitle());
       ps.setString(2, obj_User_Bean3.getSummary());
