@@ -31,6 +31,7 @@ public class read_values2 {
         obj_User_Bean2.setAcronym(rs.getString("Acronym"));
         obj_User_Bean2.setStreet(rs.getString("Street"));
         obj_User_Bean2.setStreet_Number(rs.getInt("Street_Number"));
+        obj_User_Bean2.setCity(rs.getString("City"));
         obj_User_Bean2.setPostal_Code(rs.getInt("Postal_Code"));
        // obj_User_Bean2.setCategory_Category_ID(rs.getInt("Category_Category_ID"));
         list.add(obj_User_Bean2);
